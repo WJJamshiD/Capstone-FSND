@@ -1,5 +1,6 @@
 import os
 from flask_sqlalchemy import SQLAlchemy
+from flask_migrate import Migrate
 
 
 DATABASE_URL = os.environ['DATABASE_URL']
@@ -14,6 +15,7 @@ def setup_db(app, database_path=DATABASE_URL):
     app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
     db.app = app
     db.init_app(app)
+    migrate = Migrate(app, db)
     db.create_all()
 
 
@@ -32,7 +34,7 @@ class Actor(db.Model):
 
     def __repr__(self):
         return self.name
-    
+
     def insert(self):
         db.session.add(self)
         db.session.commit()
@@ -52,7 +54,7 @@ class Actor(db.Model):
             'age': self.age,
             'movies': [movie.short_format() for movie in self.movies]
         }
-    
+
     def short_format(self):
         return {
             'id': self.id,
@@ -67,7 +69,7 @@ class Movie(db.Model):
     title = db.Column(db.String())
     release_date = db.Column(db.String(120))
     actors = db.relationship('Actor', secondary=actors, lazy='subquery',
-                             backref=db.backref('movies', lazy=True))           
+                             backref=db.backref('movies', lazy=True))
 
     def __repr__(self):
         return self.title
@@ -90,13 +92,10 @@ class Movie(db.Model):
             'release_date': self.release_date,
             'actors': [actor.short_format() for actor in self.actors]
         }
-    
+
     def short_format(self):
         return {
             'id': self.id,
             'title': self.title,
             'release_date': self.release_date
         }
-
-
-

@@ -1,4 +1,3 @@
-import os
 from flask import Flask, request, abort, jsonify
 from flask_cors import CORS
 from models import setup_db, Movie, Actor
@@ -44,7 +43,7 @@ def create_app(test_config=None):
         try:
             movies = Movie.query.order_by(Movie.id).all()
             current_movies = paginate_movies(request, movies)
-        except:
+        except Exception:
             return abort(500)
 
         if len(current_movies) == 0:
@@ -57,8 +56,8 @@ def create_app(test_config=None):
                 })
     '''
     An endpoint to handle POST requests for creating a new movie
-    which requieres movie title, release date and actors.
-    This endpoint returns created movie's id, movie list and total movies number.
+    which requieres movie title, release date and actors.This endpoint
+    returns created movie's id, movie list and total movies number.
     '''
     @app.route('/movies', methods=['POST'])
     @requires_auth('add:movie')
@@ -82,7 +81,7 @@ def create_app(test_config=None):
             if (movie_title is None) or (movie_release_date is None):
                 abort(400)
         movie = Movie(release_date=movie_release_date,
-                    title=movie_title)
+                      title=movie_title)
         try:
             if movie_actors:
                 for actor_id in movie_actors:
@@ -101,7 +100,7 @@ def create_app(test_config=None):
                 'movies': current_movies,
                 'total_movies': len(movies)
                 })
-        except:
+        except Exception:
             abort(500)
 
     '''
@@ -164,7 +163,7 @@ def create_app(test_config=None):
                 'movies': current_movies,
                 'total_movies': Movie.query.count()
             })
-        except:
+        except Exception:
             abort(422)
 
     '''
@@ -191,7 +190,7 @@ def create_app(test_config=None):
                 'movies': current_movies,
                 'total_movies': len(movies)
             })
-        except:
+        except Exception:
             abort(422)
 
     '''
@@ -206,7 +205,7 @@ def create_app(test_config=None):
         try:
             actors = Actor.query.order_by(Actor.id).all()
             current_actors = paginate_movies(request, actors)
-        except:
+        except Exception:
             return abort(500)
 
         if len(current_actors) == 0:
@@ -249,8 +248,8 @@ def create_app(test_config=None):
                 abort(400)
         try:
             actor = Actor(name=actor_name,
-                        age=actor_age,
-                        gender=actor_gender)
+                          age=actor_age,
+                          gender=actor_gender)
             actor.insert()
 
             actors = Actor.query.order_by(Actor.id).all()
@@ -262,7 +261,7 @@ def create_app(test_config=None):
                 'actors': current_actors,
                 'total_actors': len(actors)
                 })
-        except:
+        except Exception:
             abort(500)
 
     '''
@@ -299,7 +298,8 @@ def create_app(test_config=None):
         actor_name = body.get('name', None)
         actor_age = body.get('age', None)
         actor_gender = body.get('gender', None)
-        if (actor_age is None) and (actor_gender is None) and (actor_name is None):
+        if (actor_age is None) and (actor_gender is None)\
+           and (actor_name is None):
             abort(400)
         if actor_name:
             actor.name = actor_name
@@ -319,7 +319,7 @@ def create_app(test_config=None):
                 'actors': current_actors,
                 'total_actors': Actor.query.count()
             })
-        except:
+        except Exception:
             abort(422)
 
     '''
@@ -346,7 +346,7 @@ def create_app(test_config=None):
                 'actors': current_actors,
                 'total_actors': len(actors)
             })
-        except:
+        except Exception:
             abort(422)
 
     @app.errorhandler(404)
@@ -396,7 +396,7 @@ def create_app(test_config=None):
             'error': 500,
             'message': 'internal server error'
         }), 500
-    
+
     @app.errorhandler(AuthError)
     def auth_error(ex):
         res = jsonify(ex.error)
@@ -404,6 +404,7 @@ def create_app(test_config=None):
         return res
 
     return app
+
 
 app = create_app()
 
