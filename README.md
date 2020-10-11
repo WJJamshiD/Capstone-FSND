@@ -5,7 +5,7 @@ The Casting Agency API supports a basic castic agency by allowing users to query
 - Casting director: Can view, add, modify, or delete actors; can view and modify movies.
 - Executive producer: Can view, add, modify, or delete actors and movies. 
 
-# Running the API [TODO]
+# Running the API
 
 API endpoints can be accessed via https://my-last-project-capstone-fsnd.herokuapp.com/
 
