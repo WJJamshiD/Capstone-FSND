@@ -37,7 +37,7 @@ Note: all error handlers return a JSON object with the request status and error 
 ```
 {
 	"error": 400,
-    "success": false,
+    	"success": false,
 	"message": "bad request"
 }
 ```
@@ -54,7 +54,7 @@ Note: all error handlers return a JSON object with the request status and error 
 ```
 {
 	"error": 403,
-    "code": "unauthorized"
+    	"code": "unauthorized"
 	"description": "Permission not found."
 }
 ```
