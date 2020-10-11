@@ -95,7 +95,7 @@ Note: all error handlers return a JSON object with the request status and error 
 }
 ```
 
-Endpoints
+## Endpoints
 `GET '/actors'`
 `GET '/movies'`
 `POST '/actors'`
@@ -105,7 +105,7 @@ Endpoints
 `DELETE '/actors/<int:actor_id>'`
 `DELETE '/movies/<int:movie_id>'`
 
-GET '/actors'
+### GET '/actors'
 - Fetches a JSON object with a list of actors in the database.
 - Request Arguments: None
 - Returns: Multiple objects, such as actors, that contains multiple objects with a series of string key pairs, total_actors, which is shows total number of actors and response status.
@@ -129,7 +129,7 @@ GET '/actors'
     "success": true
 }
 ```
-GET '/movies'
+### GET '/movies'
 - Fetches a JSON object with a list of movies in the database.
 - Request Arguments: None
 - Returns: Multiple objects, such as movies, that contains multiple objects with a series of string key pairs, total_moviess, which shows total number of movies and response status.
@@ -151,7 +151,7 @@ GET '/movies'
     "success": true
 }
 ```
-POST '/actors'
+### POST '/actors'
 - Posts a new actor to the database, including the name, age, gender, and actor ID, which is automatically assigned upon insertion.
 - Request Arguments: Requires three string arguments: name, age, gender.
 - Returns: JSON object with the new inserted actor id, as created, total actors nubmer, as total_actors, a list of actors, as actors, and response status.
@@ -232,7 +232,7 @@ POST '/actors'
     "total_actors": 7
 }
 ```
-POST '/movie'
+### POST '/movies'
 - Posts a new movie to the database, including the title, release, and movie ID, which is automatically assigned upon insertion.
 - Request Arguments: Requires two string arguments: title, release_date.
 - Returns: JSON object with the new inserted movie id, as created, total movies nubmer, as total_movies, a list of movies, as movies, and response status.
@@ -255,7 +255,7 @@ POST '/movie'
     "success": true
 }
 ```
-PATCH '/actors/<int:actor_id>'
+### PATCH '/actors/<int:actor_id>'
 - Patches an existing actor in the database.
 - Request arguments: Actor ID, included as a parameter following a forward slash (/), and the key to be updated passed into the body as a JSON object. For example, to update the age for '/actors/6'
 ```
@@ -278,7 +278,7 @@ PATCH '/actors/<int:actor_id>'
     "success": true
 }
 ```
-PATCH '/movies/<int:movie_id>'
+### PATCH '/movies/<int:movie_id>'
 - Patches an existing movie in the database.
 - Request arguments: Movie ID, included as a parameter following a forward slash (/), and the key to be updated, passed into the body as a JSON object. For example, to update the age for '/movies/5'
 ```
@@ -300,7 +300,7 @@ PATCH '/movies/<int:movie_id>'
     "success": true
 }
 ```
-DELETE '/actors/<int:actor_id>'
+### DELETE '/actors/<int:actor_id>'
 - Deletes an actor in the database via the DELETE method and using the actor id.
 - Request argument: Actor id
 - Returns: JSON object with the deleted actor id, as deleted, total actors nubmer, as total_actors, a list of actors, as actors, an info message, as message and response status
@@ -320,7 +320,7 @@ DELETE '/actors/<int:actor_id>'
     "success": true
 }
 ```
-DELETE '/movies/<int:movie_id>'
+### DELETE '/movies/<int:movie_id>'
 - Deletes a movie in the database via the DELETE method and using the movie id.
 - Request argument: Movie id
 - Returns: JSON object with the delete movie id, as deleted, total movies nubmer, as total_movies, a list of movies, as movies, an info message, as message and response status..
